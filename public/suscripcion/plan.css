@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: #1b0c38; */
+    color: #fff;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background-color: #361a6e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #a69ace;
+  }
+
+  .card .price {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ff9156;
+  }
+
+  .card .currency {
+    font-size: 18px;
+    vertical-align: top;
+  }
+
+  .boton {
+    display: inline-block; /* Asegura que se comporte como botón */
+    text-align: center;    /* Centra el texto */
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;     /* Opcional: para mejor visibilidad */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #ff9156;
+    border-color: #ff9156;
+    color: #fff; /* Asegura que el texto siga visible */
+}
+
+
+  .card p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .highlight {
+    border: 2px solid #ff9156;
+  }
+
+  .highlight .price {
+    color: #ffc107;
+  }
+
+  .highlight p {
+    font-weight: bold;
+  }

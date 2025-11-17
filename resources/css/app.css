@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Estilos Generales */
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7fafc;
+    color: #2d3748;
+    min-height: 100vh; /* Asegura que el body tenga al menos la altura del viewport */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenido Principal */
+main {
+    flex: 1; /* Permite que el contenido principal crezca para llenar el espacio disponible */
+    padding: 2rem;
+}
+
+/* Barra de Navegación */
+nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+nav a {
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #2b6cb0;
+}
+
+nav button {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav button:hover {
+    background-color: #2c5282;
+    color: white;
+}
+
+/* Hero/Encabezado */
+.hero {
+    background: url('https://source.unsplash.com/random/1920x1080') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.hero button {
+    background-color: #2b6cb0;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero button:hover {
+    background-color: #2c5282;
+}
+
+/* Modales */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    
+}
+
+.modal .modal-content {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    max-width: 500px; /* Ajusta el ancho máximo del modal */
+    width: 100%;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para darle un poco de profundidad */
+}
+
+/* Botón de Cierre del Modal */
+.modal .close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+/* Pie de Página */
+footer {
+    background-color: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
+    color: #4a5568;
+}
+
+footer a {
+    color: #4a5568;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+footer a:hover {
+    color: #2b6cb0;
+}
