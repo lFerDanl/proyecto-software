@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Curso;
+use App\Models\Compra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
 
 class PlanEstudioController extends Controller
 {
@@ -14,47 +17,42 @@ class PlanEstudioController extends Controller
     // Método para mostrar la vista del formulario
     public function create()
     {
-        $categorias = Categoria::all();
-        return view('client.plan_estudio.create', compact('categorias'));
+        $usuarioId = Auth::id();
+        $usuario = $usuarioId ? Usuario::find($usuarioId) : null;
+        $cursosComprados = collect();
+        if ($usuario) {
+            $cursosComprados = Compra::with('curso')
+                ->where('usuario_id', $usuario->id)
+                ->get()
+                ->pluck('curso')
+                ->filter()
+                ->unique('id')
+                ->values();
+        }
+        return view('client.plan_estudio.create', compact('cursosComprados'));
     }
 
     public function generarPlandeestudio(Request $request)
     {
         try {
-            // Valida los datos recibidos del formulario
             $validated = $request->validate([
-                'area_estudio' => 'required|exists:categorias,id',
+                'curso_id' => 'required|exists:cursos,id',
             ]);
+            $curso = Curso::findOrFail($validated['curso_id']);
+            $prompt = 'Genera un plan de estudio en formato JSON para el curso "' . $curso->nombre . '".
 
-            // Obtén los cursos relacionados al área de estudio seleccionada
-            $areaEstudioId = $validated['area_estudio'];
-            $cursos = Curso::where('categoria_id', $areaEstudioId)->get();
+            Para cada elemento del plan, proporciona:
+            * "nombre"
+            * "descripcion"
+            * "link"
+            * "nivel" ("principiante", "intermedio" o "avanzado")
 
-            // Procesa los datos de los cursos para enviarlos al API
-            $data = $cursos->map(function ($curso) {
-                return ["id" => $curso->id, "nombre" => $curso->nombre];
-            })->toArray();
-
-            // Prompt para Gemini (modificado)
-            $prompt = 'Genera un plan de estudio en formato JSON con cursos para la categoría "' . Categoria::find($areaEstudioId)->nombre . '", incluyendo cursos que no estén en la siguiente lista.
-
-            Para cada curso, proporciona:
-            * "nombre": Nombre del curso
-            * "descripcion": Breve descripción del curso
-            * "link": Link a un video de youtube del curso (si está disponible)
-            * "nivel": Nivel del curso ("principiante", "intermedio" o "avanzado")
-
-            Aquí está la lista de cursos que ya existen:
-            ' . json_encode($data) . '
-
-            La respuesta debe ser exclusivamente un JSON válido con la siguiente estructura:
+            La respuesta debe ser exclusivamente un JSON válido con la estructura:
             {
-              "principiante": [ /* cursos de principiante */ ],
-              "intermedio": [ /* cursos de intermedio */ ],
-              "avanzado": [ /* cursos de avanzado */ ]
-            }
-
-            No incluyas explicaciones, comentarios ni texto adicional.';
+              "principiante": [],
+              "intermedio": [],
+              "avanzado": []
+            }';
 
             $apiKey = env("GEMINI_API_KEY");
             if (!$apiKey) {
@@ -112,9 +110,13 @@ class PlanEstudioController extends Controller
                 }
 
 
-                // No necesitamos aplanar la lista
-                $cursos = collect($cleanData);
+                $plan = new \App\Models\PlanEstudio();
+                $plan->curso_id = $curso->id;
+                $plan->nombre = 'Plan de ' . $curso->nombre;
+                $plan->contenido = $cleanData;
+                $plan->save();
 
+                $cursos = collect($cleanData);
                 return view('client.plan_estudio.show', compact('cursos'));
             } else {
                 $errorJson = $response->json();

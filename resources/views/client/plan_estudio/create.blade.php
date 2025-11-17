@@ -30,11 +30,11 @@
 
             <!-- Dropdown para áreas de estudio -->
             <div class="mb-6">
-                <label for="area_estudio" class="block text-purple-800 font-medium mb-2">Área de Estudio</label>
-                <select id="area_estudio" name="area_estudio" class="w-full border-purple-300 bg-purple-50 text-purple-900 rounded-lg shadow-sm focus:ring focus:ring-purple-400 focus:outline-none focus:border-purple-500 transition px-4 py-2" required>
-                    <option value="" disabled selected>Selecciona un área</option>
-                    @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                <label for="curso_id" class="block text-purple-800 font-medium mb-2">Curso comprado</label>
+                <select id="curso_id" name="curso_id" class="w-full border-purple-300 bg-purple-50 text-purple-900 rounded-lg shadow-sm focus:ring focus:ring-purple-400 focus:outline-none focus:border-purple-500 transition px-4 py-2" required>
+                    <option value="" disabled selected>Selecciona un curso</option>
+                    @foreach ($cursosComprados as $curso)
+                        <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
                     @endforeach
                 </select>
             </div>

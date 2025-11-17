@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('curso_id');
             $table->string('nombre'); // Nombre del tema del plan de estudio
+            $table->json('contenido')->nullable()->after('nombre');
             $table->timestamps();
 
             // Llave foránea

@@ -15,6 +15,11 @@ class PlanEstudio extends Model
     protected $fillable = [
         'curso_id',
         'nombre',
+        'contenido',
+    ];
+
+    protected $casts = [
+        'contenido' => 'array',
     ];
 
     // Relación con el modelo Curso
