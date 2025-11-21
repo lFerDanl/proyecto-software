@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Compra;
 
 class Usuario extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     protected $table = 'usuarios';
     protected $primaryKey = 'id';
@@ -20,7 +21,10 @@ class Usuario extends Authenticatable
         'correo',
         'contrasena',
         'fecha_nacimiento',
-        'rol_id'
+        'rol_id',
+        'avatar_url',
+        'config_preferencias',
+        'role',
     ];
 
     protected $hidden = [

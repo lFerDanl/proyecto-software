@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,6 +20,10 @@ return new class extends Migration
             $table->string('contrasena');
             $table->unsignedBigInteger('rol_id')->nullable();
             $table->date('fecha_nacimiento')->nullable();
+            $table->text('avatar_url')->nullable();
+            $table->jsonb('config_preferencias')->default(DB::raw("'{}'::jsonb"));
+            $table->string('role', 50)->default('USER');
+            $table->softDeletes();
             $table->timestamps();
     
             $table->foreign('rol_id')->references('id')->on('roles')->onDelete('set null');

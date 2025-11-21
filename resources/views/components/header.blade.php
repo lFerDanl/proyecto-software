@@ -1,4 +1,4 @@
-  <header class="header navbar navbar-expand-lg bg-light navbar-sticky">
+<header class="header navbar navbar-expand-lg bg-light navbar-sticky">
     <div class="container px-3">
         <a href="index.html" class="navbar-brand pe-3">
             <img src="{{asset('assets/img/logo.svg')}}" width="47" alt="Silicon">
@@ -47,6 +47,13 @@
                             <li><a href="{{route('plan_estudio.create')}}" class="dropdown-item">Crear Plan de Estudio</a></li>
                             <li><a href="account-details.html" class="dropdown-item">Ver Planes de Estudio</a></li>
                             <li><a href="account-details.html" class="dropdown-item">Tus Planes de Estudio</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Apuntes</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('client.apuntes.index') }}" class="dropdown-item">Ver Apuntes</a></li>
                         </ul>
                     </li>
 

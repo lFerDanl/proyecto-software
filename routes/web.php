@@ -11,6 +11,7 @@ use App\Http\Controllers\CompraController;
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PlanEstudioController;
+use App\Http\Controllers\IntegracionIaController;
 
 
 Route::get('/', function () {
@@ -75,6 +76,8 @@ Route::middleware('roles:admin')->group(function () {
 
     Route::get('/curso-admin',[CursoController::class,'indexAdmin'])->name('admin.secciones.CursoCrud');
 
+    
+
 });
 
 // Rutas para clientes
@@ -115,7 +118,7 @@ Route::post('cursos/{cursoId}/materiales', [MaterialDidacticoController::class, 
 Route::get('/curso/{id}/detalles', [CursoController::class, 'detalles'])->name('curso.detalles');
 //Route::get('/curso/{id}/detalles', [CursoController::class, 'show'])->name('curso.show');
 
-Route::get('/curso/{id}/comprar', [CursoController::class, 'comprar'])->name('curso.comprar');
+    Route::get('/curso/{id}/comprar', [CursoController::class, 'comprar'])->name('curso.comprar');
 
 
 
@@ -142,3 +145,20 @@ Route::get('/plan-estudio/create', [PlanEstudioController::class, 'create'])->na
 //Route::resource('/plan-estudio', PlanEstudioController::class)->names('plan_estudio');
 //Route::get('/plan-estudio/{id}', [PlanEstudioController::class, 'show'])->name('plan_estudio.show');
 Route::post('/plan-estudio/generar', [PlanEstudioController::class, 'generarPlandeestudio'])->name('plan_estudio.generar');
+    // IA: Upload Media y vista para estudiantes
+    Route::get('/ia/media', [IntegracionIaController::class, 'vistaUpload'])->name('client.apuntes.ia.media');
+    Route::post('/ia/media/upload', [IntegracionIaController::class, 'upload'])->name('client.ia.media.upload');
+    Route::get('/ia/media/{id}/status', [IntegracionIaController::class, 'status'])->name('client.ia.media.status');
+
+    // Apuntes: índice y detalle
+    Route::get('/apuntes', [IntegracionIaController::class, 'apuntesIndex'])->name('client.apuntes.index');
+    Route::get('/apuntes/media/{id}', [IntegracionIaController::class, 'apuntesShow'])->name('client.apuntes.show');
+    Route::get('/apuntes/media/{id}/temas', [IntegracionIaController::class, 'temasList'])->name('client.apuntes.temas');
+    Route::post('/apuntes/media/{id}/temas/generar', [IntegracionIaController::class, 'temasGenerar'])->name('client.apuntes.temas.generar');
+    Route::post('/apuntes/temas/{temaId}/profundizar', [IntegracionIaController::class, 'temasProfundizar'])->name('client.apuntes.temas.profundizar');
+    Route::post('/apuntes/temas/{temaId}/secciones', [IntegracionIaController::class, 'temasAddSeccion'])->name('client.apuntes.temas.secciones');
+    Route::post('/apuntes/{apunteId}/quizzes/generar', [IntegracionIaController::class, 'quizzesGenerate'])->name('client.apuntes.quizzes.generar');
+    Route::post('/apuntes/quizzes/{quizId}/sesiones', [IntegracionIaController::class, 'sesionCrear'])->name('client.apuntes.quizzes.sesion');
+    Route::get('/apuntes/quizzes/{quizId}/recomendaciones', [IntegracionIaController::class, 'recomendacionesQuiz'])->name('client.apuntes.quizzes.recomendaciones');
+    Route::get('/apuntes/sesiones/{sesionId}', [IntegracionIaController::class, 'sesionVer'])->name('client.apuntes.sesion.ver');
+    Route::post('/apuntes/sesiones/{sesionId}/responder', [IntegracionIaController::class, 'sesionResponder'])->name('client.apuntes.sesion.responder');
